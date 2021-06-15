@@ -1,0 +1,110 @@
+body{
+    background-color: #2a6dbb;
+    margin: 0;
+}
+.fundo{
+    width: 1200px;
+    height: 50px;
+    margin: auto;
+}
+.recepcao{
+    width: 1200px;
+    height: 400px;
+    background-color:beige;
+    margin: auto;
+}
+.fundo_perfil{
+    width:1200px;
+    height: 200px;
+    float: left;
+    background-color: #FFFFFF;
+}
+.foto{
+    float: left;
+    width: 200px;
+    height: 198px;
+    border-radius: 80%;
+    margin-left: 5px;
+}
+.foto img{
+    border-radius: 80%;
+    transition: border 100ms;
+}
+.foto img:hover{
+    border: 2px solid #00a49d;
+}
+.foto p{
+    margin-top: 10px;   
+}
+.selecao{
+    margin: auto;
+    width:1200px;
+    height: 800px;
+    background-color:White;
+}
+.botoes{
+    margin: auto;
+    background-color: lightgray;
+    width:800px;
+    height: 200px;
+    border-radius: 0%;
+    float: center;
+    border-bottom: 25px solid transparent;
+    transition: border 500ms;
+    position:relative;
+    border-top: 15px solid white;
+}
+.botoes:hover{
+    border-bottom: 25px solid #00a49d;
+}
+.footer{
+    margin: auto;
+    width:1200px;
+    height: 100px;
+    background-color:aquamarine;
+}
+.menu{
+    font-family: Ubuntu;
+    display: inline-block;
+    width:1200px;
+    height: 50px;
+    background-color: black;
+    margin: auto;
+    text-align: center;
+}
+.menu a{
+        color: #FFFFFF;
+        text-decoration: none;
+        display: inline-block;
+        padding: 15px 16px 16px 16px;
+        border-top: 2px solid rgb(99, 99, 99);
+        border-bottom: 2px solid transparent;
+        transition: border 0.5s;
+    }
+.menu a:hover{
+        color: #FFFFFF;
+        border-top: 2px solid #FFFFFF;
+}
+p{
+    float: left;
+    padding-top: 50px;
+    padding-left: 20px;
+    font-family: Ubuntu;
+    font-size: 36px;
+}
+i{
+    float:right;
+    margin-right: 40px;
+    margin-top: 75px;
+    transition: color 500ms;
+}
+
+i:hover{
+    color: #00a49d;
+}
+.botoes a{
+    color:black
+}
+.pe{
+    text-align: center;
+}
