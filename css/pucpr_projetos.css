@@ -71,3 +71,10 @@ body{
         color: #FFFFFF;
         border-top: 2px solid #FFFFFF;
 }
+a{
+    color: black;
+    transition: 500ms
+}
+a:hover{
+    color: #8a0638;
+}
