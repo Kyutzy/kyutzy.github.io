@@ -35,10 +35,11 @@ body{
     float: left;
     font-family: Ubuntu;
     font-size: 48px;
-    margin-left: 200px;
+    margin-left: 150px;
 }
 .linguas:hover{
-    border-bottom: 25px solid #f0fffd;
+    border-bottom: 25px solid #209ea2;
+    color: #209ea2;
 }
 .seta{
     float: right;
@@ -46,7 +47,7 @@ body{
     transition: 500ms;
 }
 .seta:hover{
-    color: #f0fffd
+    color: #209ea2;
 }
 .menu{
     font-family: Ubuntu;
@@ -69,4 +70,11 @@ body{
 .menu a:hover{
         color: #FFFFFF;
         border-top: 2px solid #FFFFFF;
+}
+a{
+    color:black;
+    transition: 500ms;
+}
+a:hover{
+    color: #209ea2;
 }
