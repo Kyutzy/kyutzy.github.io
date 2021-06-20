@@ -1,0 +1,90 @@
+body{
+    background-color: #2a6dbb;
+    margin: 0;
+}
+.fundo{
+    width: 1200px;
+    height: 50px;
+    margin: auto;
+}
+.recepcao{
+    width: 1200px;
+    height: 12000px;
+    background-color:rgb(255, 255, 255);
+    margin:auto;
+    transition: all 300ms;
+}
+.fundo_perfil{
+    width:1200px;
+    height: 200px;
+    float: left;
+    background-color: #FFFFFF;
+    margin: auto;
+}
+.foto{
+    float: left;
+    width: 200px;
+    height: 198px;
+    border-radius: 80%;
+    margin-left: 5px;
+    margin: auto;
+}
+.foto img{
+    border-radius: 80%;
+    transition: border 100ms;
+    margin: auto;
+}
+.foto img:hover{
+    border: 2px solid #00a49d;
+}
+.foto p{
+    margin-top: 10px;   
+}
+.menu{
+    font-family: Ubuntu;
+    display: inline-block;
+    width:1200px;
+    height: 50px;
+    background-color: black;
+    margin: auto;
+    text-align: center;
+}
+.menu a{
+        color: #FFFFFF;
+        text-decoration: none;
+        display: inline-block;
+        padding: 15px 16px 16px 16px;
+        border-top: 2px solid rgb(99, 99, 99);
+        border-bottom: 2px solid transparent;
+        transition: border 0.5s;
+    }
+.menu a:hover{
+        color: #FFFFFF;
+        border-top: 2px solid #FFFFFF;
+}
+.casa_foto{
+    width: 300px;
+    height: 400px;
+    background-color: #FFFFFF;
+    margin-left: 400px;
+    margin-top: 30px;
+    float: left;
+    padding-top: 20px;
+    padding-left: 80px;
+    background-color:rgb(197, 193, 193);
+    font-family: ubuntu;
+    position: fixed;
+    transition: all 600ms 
+}
+.casa_texto{
+    width: 375px;
+    height: 200px;
+    margin: auto;
+    float:right;
+    margin-right: 0px;
+}
+
+.bloco-do-robert{
+    height: 100vh;
+    background-color: green;
+}
