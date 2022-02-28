@@ -60,7 +60,7 @@ function pokemonDraw(){
     var ctx_pokemon = canvas_pokemon.getContext("2d")
     ctx_pokemon.clearRect(0,0,500,500)
     var foto = new Image(200, 200)
-    foto.src = "pokedraw/black-white/" + pokedex + ".png"   
+    foto.src = "./black-white/" + pokedex + ".png"   
     foto.addEventListener('load', ()=>{
     console.log(foto.src)
     ctx_pokemon.drawImage(foto,50,50,400,400)
