@@ -15,7 +15,7 @@
             <canvas id="desenho">
             </canvas>
             Cor do pincel: <input type="color" id="color" name="cor"></input><br>
-            Tamanho da pincel: <input type="range" name="size" id="brushSize" min="3" max="10">
+            Tamanho do pincel: <input type="range" name="size" id="brushSize" min="3" max="10">
             <br>
             <button id="reset" onclick="clear()">limpar canvas</button>
         </div>
@@ -23,7 +23,9 @@
             <canvas id="pokemon">
             </canvas>
             <br>
-            <button id="new" onclick="pokemonDraw()">Novo pokemon</button>
+            <button id="new" onclick="pokemonDraw()">Modo Criativo</button>
+            <br>
+            <button id="comecar" onclick="start()">Modo Sobrevivencia</button>
         </div>
     </div>
     <button id="download" onclick="salvar()">salvar imagem</button>
