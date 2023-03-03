@@ -62,7 +62,7 @@ function createXHR() {
             let pokemon = document.createElement('img')
             pokemon.id = 'pokemon'
             pokemon.src = respostaObjeto.sprites.other["official-artwork"].front_shiny
-            pokemon.style.width = "clamp(80px, 150px, 200px)"
+            pokemon.style.width = "clamp(80px, 100px, 150px)"
             pokemon.style.objectFit = 'cover'
             if (document.getElementById('pokemon') != null) {
                 document.getElementById('pokemon').src = pokemon.src
