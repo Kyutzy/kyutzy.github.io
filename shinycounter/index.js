@@ -47,8 +47,9 @@ function createXHR() {
       document.getElementById('contador').innerText = localStorage.getItem(nomePokemon)
       contador = window.localStorage.getItem(nomePokemon)
     }
-    else {
-      contador = 0  
+      else {
+      contador = 0
+      document.getElementById('contador').innerText = contador
     }
 
     xhr.open('GET', `https://pokeapi.co/api/v2/pokemon/${nomePokemon.toLowerCase()}`, true);
