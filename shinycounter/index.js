@@ -25,7 +25,7 @@ function createXHR() {
       'water': '#6890F0',
   };
     const xhr = new XMLHttpRequest();
-    let nomePokemon = document.getElementById('nomePokemon').value
+    let nomePokemon = document.getElementById('nomePokemon').value.toLowerCase();
 
     document.body.onkeyup = function(e) {
       if (e.key == " " ||
