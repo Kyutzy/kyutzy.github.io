@@ -51,7 +51,7 @@ function createXHR() {
       contador = 0  
     }
 
-    xhr.open('GET', `https://pokeapi.co/api/v2/pokemon/${nomePokemon}`, true);
+    xhr.open('GET', `https://pokeapi.co/api/v2/pokemon/${nomePokemon.toLowerCase()}`, true);
     xhr.send();
 
     xhr.onload = function () {
