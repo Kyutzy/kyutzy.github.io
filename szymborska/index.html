@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="utf-8" />
+    <title>Minha Apresentação Insana</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- Reveal.js core -->
+    <script
+      src="https://cdn.jsdelivr.net/npm/twemoji@14/dist/twemoji.min.js"
+      defer
+    ></script>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/reveal.js@5/dist/reveal.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/reveal.js@5/dist/theme/white.css"
+      id="theme"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap"
+      rel="stylesheet"
+    />
+
+    <link href="style/slides.css" rel="stylesheet" />
+  </head>
+  <body>
+    <div class="reveal">
+      <div class="slides">
+        <!--  ---------- SLIDES BEGIN ---------- -->
+
+        <section data-auto-animate>
+          <h1>As três palavras mais estranhas</h1>
+          <p>Clique ou use as setas → para avançar</p>
+        </section>
+
+        <section>
+          <h3>Escrito por</h3>
+          <img
+            src="https://miltonribeiro.ars.blog.br/wp-content/uploads/Wislawa-Szymborska.jpg"
+          />
+          <p class="nome">Wisława Szymborska</p>
+        </section>
+
+        <section>
+          <p>
+            Quando pronuncio a palavra <br /><b class="destaque">Futuro</b>
+            <br />
+            a primeira sílaba já se perde no passado.
+          </p>
+        </section>
+        <section>
+          <p>
+            Quando pronuncio a palavra <br /><b class="destaque">Silêncio</b><br />
+            suprimo-o.
+          </p>
+        </section>
+
+        <section>
+          Quando pronuncio a palavra <br /><b class="destaque">Nada</b><br/>
+          crio algo que não cabe em nenhum não ser
+        </section>
+
+        <section>
+          <h1>Análise do poema</h1>
+        </section>
+
+        <section>
+          <h2>Futuro</h2>
+        </section>
+
+        <!-- SLIDE COM ANIMAÇÃO FUTURO (posição correta) -->
+        <section class="futuro-animation-slide">
+          <div class="futuro-animation-container">
+            <div class="person-icon"></div>
+            <div class="breath-line"></div>
+            <div class="vertical-line"></div>
+            <div class="time-label">PRESENTE</div>
+            <div class="animation-area">
+              <!-- Área onde as palavras aparecerão -->
+            </div>
+          </div>
+          <div class="interaction-hint">
+            Pressione <strong>ENTER</strong> para ver a animação
+          </div>
+        </section>
+
+        <section>
+          <h2>Silêncio</h2>
+        </section>
+
+        <!-- ====================================
+        SLIDE – Silêncio (só o emoji)
+        ==================================== -->
+        <section class="silencio-animation-slide">
+          <div class="emoji-container">
+            <img class="emoji-piece seed" src="imagens/1f92b.svg" alt="🤫" />
+          </div>
+
+          <div class="interaction-hint">
+            Pressione <strong>ENTER</strong> para “quebrar” o silêncio
+          </div>
+        </section>
+
+        <section data-transition="none">
+          <h1>Nada</h1>
+        </section>
+
+        <section data-transition="none">
+          <h1>Nada?</h1>
+        </section>
+
+        <section data-transition="zoom">
+          <div class="pixel-lines">
+            <div class="pixel red"></div>
+            <div class="pixel green"></div>
+            <div class="pixel blue"></div>
+          </div>
+        </section>
+
+        <section data-transition="">
+          <h1>Obrigado!</h1>
+      </div>
+    </div>
+
+    <!-- Reveal.js script -->
+    <script src="https://cdn.jsdelivr.net/npm/reveal.js@5/dist/reveal.js"></script>
+
+    <script src="script/transition.js"></script>
+  </body>
+</html>
