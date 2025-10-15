@@ -1,0 +1,42 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/teams/v1.16/MicrosoftTeams.schema.json",
+  "manifestVersion": "1.16",
+  "version": "1.0.0",
+  "id": "YOUR-APP-ID-HERE",
+  "packageName": "com.cesar.roleta",
+  "name": {
+    "short": "Roleta da Reunião",
+    "full": "Roleta da Reunião (Live Share)"
+  },
+  "description": {
+    "short": "Roleta para sorteios colaborativos dentro do Teams.",
+    "full": "Roleta para reuniões no Microsoft Teams, sincronizada via Live Share SDK."
+  },
+  "developer": {
+    "name": "Cesar",
+    "websiteUrl": "https://kyutzy.github.io/roleta-teams/",
+    "privacyUrl": "https://kyutzy.github.io/roleta-teams/privacy.html",
+    "termsOfUseUrl": "https://kyutzy.github.io/roleta-teams/terms.html"
+  },
+  "icons": {
+    "color": "https://kyutzy.github.io/roleta-teams/icon-color.png",
+    "outline": "https://kyutzy.github.io/roleta-teams/icon-outline.png"
+  },
+  "accentColor": "#6264A7",
+  "meetingExtensionDefinition": {
+    "scenes": [
+      {
+        "id": "roletaScene",
+        "name": "Roleta",
+        "contentUrl": "https://kyutzy.github.io/roleta-teams/",
+        "scopes": ["meetingStage"]
+      }
+    ]
+  },
+  "validDomains": ["seuusuario.github.io"],
+  "authorization": {
+    "permissions": {
+      "resourceSpecific": ["LiveShare"]
+    }
+  }
+}
