@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Andrzejki Mobile</title>
+    <style>
+        /* AJUSTE 2: touch-action: none impede o scroll da página, focando no 3D */
+        body { margin: 0; overflow: hidden; background-color: #1a1a2e; color: white; font-family: sans-serif; touch-action: none; }
+        
+        /* Container do TOPO (Texto) */
+        #ui-top {
+            position: absolute;
+            top: 15%; /* Fica numa altura confortável para leitura */
+            width: 100%;
+            text-align: center;
+            pointer-events: none;
+            z-index: 10;
+        }
+
+        /* Container de BAIXO (Botões) */
+        #ui-bottom {
+            position: absolute;
+            bottom: 50px; /* Ergonomia: fácil alcance para o dedão */
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 10;
+            pointer-events: none; /* Deixa passar cliques nas áreas vazias */
+        }
+
+        /* --- BOTÃO PLAY --- */
+        #btn-play {
+            pointer-events: auto;
+            cursor: pointer;
+            width: 80px; /* Um pouco menor para telas pequenas */
+            height: 80px;
+            border-radius: 50%;
+            border: none;
+            background-color: #ffffff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            -webkit-tap-highlight-color: transparent; /* Remove o quadrado azul de seleção no Android */
+        }
+
+        #btn-play svg {
+            width: 35px;
+            height: 35px;
+            fill: #000000;
+            margin-left: 4px;
+        }
+
+        #btn-play:active { transform: scale(0.9); }
+
+        /* --- BOTÃO RESET --- */
+        #btn-reset {
+            pointer-events: auto;
+            cursor: pointer;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            border: none;
+            background-color: #ffffff; 
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+            opacity: 0; 
+            transform: translateY(20px);
+            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        #btn-reset svg {
+            width: 28px;
+            height: 28px;
+            fill: #000000;
+            transition: transform 0.5s ease;
+        }
+
+        #btn-reset:active { transform: scale(0.9); }
+        /* No mobile, o hover não existe direito, então usamos a rotação na animação de entrada se quiser, ou deixamos estático */
+
+        .hidden { opacity: 0 !important; pointer-events: none !important; transform: scale(0) !important; }
+        .visible { opacity: 1 !important; transform: translateY(0) !important; pointer-events: auto !important; }
+
+        #instructions-drag {
+            opacity: 0;
+            text-shadow: 1px 1px 4px rgba(0,0,0,0.8);
+            transition: opacity 0.5s;
+            font-weight: lighter;
+            font-size: 1.1em; /* Texto um pouco maior para ler fácil */
+            padding: 0 20px;
+        }
+    </style>
+    <script type="importmap">
+        {
+            "imports": {
+                "three": "https://unpkg.com/three@0.160.0/build/three.module.js",
+                "three/addons/": "https://unpkg.com/three@0.160.0/examples/jsm/"
+            }
+        }
+    </script>
+</head>
+<body>
+    <div id="ui-top">
+        <div id="instructions-drag">Arraste para interpretar a forma</div>
+    </div>
+
+    <div id="ui-bottom">
+        <button id="btn-play" onclick="startWaxDrop()" title="Começar">
+            <svg viewBox="0 0 24 24">
+                <path d="M8 5v14l11-7z"/>
+            </svg>
+        </button>
+        
+        <button id="btn-reset" onclick="resetSimpatia()" title="Tentar Novamente">
+            <svg viewBox="0 0 24 24">
+                <path d="M12,4V1L8,5l4,4V6c3.31,0,6,2.69,6,6c0,1.01-0.25,1.97-0.7,2.8l1.46,1.46C19.54,15.03,20,13.57,20,12c0-4.42-3.58-8-8-8z M12,20c-3.31,0-6-2.69-6-6c0-1.01,0.25-1.97,0.7-2.8L5.24,9.74C4.46,10.97,4,12.43,4,12c0,4.42,3.58,8,8,8v3l4-4l-4-4V20z"/>
+            </svg>
+        </button>
+    </div>
+
+    <script type="module">
+        import * as THREE from 'three';
+        import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
+
+        const scene = new THREE.Scene();
+        scene.fog = new THREE.FogExp2(0x1a1a2e, 0.005); 
+
+        const camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 100);
+        // AJUSTE 3: Afastei um pouco a câmera (Z=14) para garantir que a cera caiba em telas estreitas
+        const initialCameraPos = new THREE.Vector3(0, 6, 14);
+        camera.position.copy(initialCameraPos);
+
+        const renderer = new THREE.WebGLRenderer({ antialias: true });
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        renderer.setPixelRatio(window.devicePixelRatio); // Importante para telas Retina/Mobile nítidas
+        renderer.shadowMap.enabled = true;
+        renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+        document.body.appendChild(renderer.domElement);
+
+        const controls = new OrbitControls(camera, renderer.domElement);
+        controls.enableDamping = true;
+        controls.dampingFactor = 0.05; // Mais suave no touch
+        controls.maxPolarAngle = Math.PI / 2 - 0.05;
+        controls.enablePan = false; // Desabilita arrastar a tela lateralmente (melhor UX no mobile)
+        const initialControlTarget = new THREE.Vector3(0, 0, 0);
+
+        // --- Iluminação ---
+        const ambientLight = new THREE.AmbientLight(0x404060, 1.5); 
+        scene.add(ambientLight);
+
+        const dirLight = new THREE.DirectionalLight(0xaaccff, 0.5);
+        dirLight.position.set(-5, 10, -5);
+        scene.add(dirLight);
+
+        const pointLightSource = new THREE.PointLight(0xffaa33, 80, 20);
+        const lightPosition = new THREE.Vector3(0, 5, -1); 
+        pointLightSource.position.copy(lightPosition);
+        pointLightSource.castShadow = true;
+        pointLightSource.shadow.bias = -0.0005;
+        scene.add(pointLightSource);
+
+        const plane = new THREE.Mesh(
+            new THREE.PlaneGeometry(200, 200),
+            new THREE.MeshStandardMaterial({ color: 0x111122, roughness: 0.2, metalness: 0.6 })
+        );
+        plane.rotation.x = -Math.PI / 2;
+        plane.receiveShadow = true;
+        scene.add(plane);
+
+
+        // --- Lógica ---
+        let waxDrop = null;
+        let waxShape = null;
+        let isDropping = false;
+        let isCameraLocked = false; 
+        
+        const targetState = {
+            fogDensity: 0.005,
+            cameraPos: initialCameraPos.clone(),
+            controlTarget: initialControlTarget.clone()
+        };
+
+        const waterLevel = 0.05;
+
+        // --- SOM ---
+        function playMagicSound() {
+            try {
+                // Mobile requer interação do usuário para desbloquear AudioContext. 
+                // O clique no botão já serve como essa interação.
+                const AudioContext = window.AudioContext || window.webkitAudioContext;
+                if (!AudioContext) return;
+                const ctx = new AudioContext();
+                const now = ctx.currentTime;
+                const masterGain = ctx.createGain();
+                masterGain.connect(ctx.destination);
+                masterGain.gain.setValueAtTime(0.2, now); 
+                masterGain.gain.exponentialRampToValueAtTime(0.001, now + 1.5); 
+                const notes = [880.00, 1108.73, 1318.51, 1760.00];
+                notes.forEach((freq, index) => {
+                    const osc = ctx.createOscillator();
+                    osc.type = 'sine';
+                    osc.frequency.value = freq;
+                    osc.connect(masterGain);
+                    osc.start(now + (index * 0.06));
+                    osc.stop(now + 1.5);
+                });
+            } catch (e) { console.log("Erro audio"); }
+        }
+
+        // --- Funções ---
+
+        window.startWaxDrop = function() {
+            if (isDropping || waxShape) return;
+            
+            playMagicSound();
+
+            isDropping = true;
+            document.getElementById('btn-play').classList.add('hidden');
+
+            const dropGeo = new THREE.SphereGeometry(0.14, 16, 16);
+            const dropMat = new THREE.MeshStandardMaterial({ color: 0xfffff0, metalness: 0.1, roughness: 0.2 });
+            waxDrop = new THREE.Mesh(dropGeo, dropMat);
+            waxDrop.position.copy(lightPosition);
+            scene.add(waxDrop);
+        }
+
+        function createRandomWaxShape(landPosition) {
+            // Reduzi levemente a complexidade para garantir performance em celulares antigos
+            const segments = Math.floor(50 + Math.random() * 50); 
+            const geometry = new THREE.SphereGeometry(0.9, segments, segments);
+            const posAttr = geometry.attributes.position;
+            const vertex = new THREE.Vector3();
+
+            const seed = Math.random() * 1000;
+            const stretchX = 0.5 + Math.random() * 1.5; 
+            const stretchZ = 0.5 + Math.random() * 1.5;
+            const freqX = 1 + Math.random() * 5; 
+            const freqY = 1 + Math.random() * 5;
+            const freqZ = 1 + Math.random() * 5;
+            const amplitude = 0.1 + Math.random() * 0.5;
+            const flattenFactor = 0.15 + Math.random() * 0.25; 
+
+            for (let i = 0; i < posAttr.count; i++) {
+                vertex.fromBufferAttribute(posAttr, i);
+                vertex.x *= stretchX;
+                vertex.z *= stretchZ;
+                let noise = Math.sin(vertex.x * freqX + seed) * Math.cos(vertex.z * freqZ + seed) + 
+                            Math.sin(vertex.y * freqY + seed);
+                let detailNoise = Math.sin(vertex.x * 10 + seed) * 0.1;
+                let scale = 1 + (noise + detailNoise) * amplitude;
+                vertex.multiplyScalar(scale);
+                vertex.y *= flattenFactor; 
+                if(vertex.y < 0) vertex.y *= 0.1;
+                posAttr.setXYZ(i, vertex.x, vertex.y, vertex.z);
+            }
+            geometry.computeVertexNormals();
+
+            const hue = 0.10 + Math.random() * 0.05; 
+            const sat = 0.10 + Math.random() * 0.15; 
+            const light = 0.85 + Math.random() * 0.10; 
+            const color = new THREE.Color().setHSL(hue, sat, light);
+
+            const material = new THREE.MeshStandardMaterial({
+                color: color, 
+                roughness: 0.2 + Math.random() * 0.3,
+                metalness: 0.05,
+                flatShading: Math.random() > 0.8
+            });
+
+            waxShape = new THREE.Mesh(geometry, material);
+            waxShape.castShadow = true;
+            waxShape.receiveShadow = true;
+            waxShape.position.set(landPosition.x, waterLevel, landPosition.z);
+            scene.add(waxShape);
+
+            enterFocusMode(waxShape.position);
+        }
+
+        function enterFocusMode(targetPosition) {
+            targetState.fogDensity = 0.12; 
+            targetState.cameraPos.set(targetPosition.x, 3, targetPosition.z + 4.5); // Um pouco mais longe no mobile
+            targetState.controlTarget.copy(targetPosition);
+            
+            isCameraLocked = true;
+
+            setTimeout(() => {
+                isCameraLocked = false;
+                document.getElementById('instructions-drag').style.opacity = 1;
+                document.getElementById('btn-reset').classList.add('visible');
+            }, 2000);
+        }
+
+        window.resetSimpatia = function() {
+            if (waxShape) {
+                scene.remove(waxShape); waxShape.geometry.dispose(); waxShape = null;
+            }
+
+            document.getElementById('btn-reset').classList.remove('visible');
+            document.getElementById('instructions-drag').style.opacity = 0;
+
+            targetState.fogDensity = 0.005;
+            targetState.cameraPos.copy(initialCameraPos);
+            targetState.controlTarget.copy(initialControlTarget);
+
+            isCameraLocked = true;
+
+            setTimeout(() => {
+                isCameraLocked = false; 
+                startWaxDrop();
+            }, 1200);
+        }
+
+        function animate() {
+            requestAnimationFrame(animate);
+
+            if (Math.random() > 0.8) pointLightSource.intensity = 70 + Math.random() * 20;
+
+            if (isDropping && waxDrop) {
+                waxDrop.position.y -= 0.15;
+                if (waxDrop.position.y <= waterLevel) {
+                    const landPos = waxDrop.position.clone();
+                    scene.remove(waxDrop); waxDrop = null;
+                    isDropping = false;
+                    createRandomWaxShape(landPos);
+                }
+            }
+
+            if (waxShape) waxShape.rotation.y += 0.0015;
+
+            const lerpSpeed = 0.04;
+            scene.fog.density = THREE.MathUtils.lerp(scene.fog.density, targetState.fogDensity, lerpSpeed * 0.5);
+
+            if (isCameraLocked) {
+                camera.position.lerp(targetState.cameraPos, lerpSpeed);
+                controls.target.lerp(targetState.controlTarget, lerpSpeed);
+            }
+
+            controls.update();
+            renderer.render(scene, camera);
+        }
+
+        window.addEventListener('resize', () => {
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+        });
+
+        animate();
+    </script>
+</body>
+</html>
