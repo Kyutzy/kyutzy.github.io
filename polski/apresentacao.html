@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Apresentação Andrzejki</title>
+    <style>
+        body {
+            margin: 0;
+            background: radial-gradient(circle at center, #1a1a2e 0%, #000000 100%);
+            color: white;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            overflow: hidden;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* --- BACKGROUND MÍSTICO (Igual aos apps) --- */
+        #star-container { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: -1; }
+        .star {
+            position: absolute; background: white; border-radius: 50%; opacity: 0;
+            animation: twinkle var(--duration) ease-in-out infinite;
+            box-shadow: 0 0 4px #fff;
+        }
+        @keyframes twinkle { 0%, 100% { opacity: 0; transform: scale(0.5); } 50% { opacity: var(--max-opacity); transform: scale(1.2); } }
+
+        .fog-container { position: fixed; bottom: 0; left: 0; width: 100%; height: 150px; pointer-events: none; z-index: 0; opacity: 0.4; }
+        .fog-wave {
+            position: absolute; bottom: 0; left: 0; width: 200%; height: 100%;
+            background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 320'%3E%3Cpath fill='%234a4a8a' fill-opacity='0.4' d='M0,192L48,197.3C96,203,192,213,288,229.3C384,245,480,267,576,250.7C672,235,768,181,864,181.3C960,181,1056,235,1152,234.7C1248,235,1344,181,1392,154.7L1440,128L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z'%3E%3C/path%3E%3C/svg%3E");
+            background-repeat: repeat-x; background-position: bottom; animation: moveFog 20s linear infinite;
+        }
+        @keyframes moveFog { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+
+        /* --- SLIDES --- */
+        .slide-container {
+            width: 80%;
+            height: 80%;
+            position: relative;
+        }
+
+        .slide {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            display: flex; flex-direction: column; justify-content: center; align-items: center;
+            opacity: 0; transform: translateY(50px) scale(0.9);
+            transition: all 0.6s cubic-bezier(0.25, 1, 0.5, 1);
+            text-align: center;
+            pointer-events: none;
+        }
+
+        .slide.active {
+            opacity: 1; transform: translateY(0) scale(1);
+            pointer-events: auto;
+        }
+
+        /* Tipografia */
+        h1 {
+            font-size: 5em; margin: 0; color: #ffd700; text-transform: uppercase;
+            text-shadow: 0 0 30px rgba(255, 215, 0, 0.6); letter-spacing: 5px; line-height: 1;
+        }
+        
+        h2 {
+            font-size: 2.5em; color: #a8a8c0; margin-top: 20px; font-weight: 300;
+        }
+
+        p {
+            font-size: 1.8em; line-height: 1.6; max-width: 800px; margin-top: 40px;
+            color: #eee; text-shadow: 0 2px 4px rgba(0,0,0,0.8);
+        }
+
+        .highlight { color: #ffd700; font-weight: bold; }
+        
+        /* Emojis gigantes decorativos */
+        .big-icon {
+            font-size: 8em; margin-bottom: 20px;
+            filter: drop-shadow(0 0 20px rgba(255,215,0,0.3));
+            animation: float 3s ease-in-out infinite;
+        }
+
+        @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-20px); } }
+
+        /* Barra de Progresso */
+        .progress-bar {
+            position: fixed; bottom: 0; left: 0; height: 8px; background: #ffd700;
+            width: 0%; transition: width 0.3s;
+            box-shadow: 0 0 10px #ffd700;
+        }
+
+        /* Navegação Dica */
+        .nav-hint {
+            position: fixed; bottom: 20px; right: 30px; color: rgba(255,255,255,0.3);
+            font-size: 0.9em;
+        }
+
+        /* Estilos específicos dos slides */
+        .list-items {
+            list-style: none; padding: 0; font-size: 2em; text-align: left;
+        }
+        .list-items li { margin: 20px 0; opacity: 0; transform: translateX(-20px); transition: all 0.5s; }
+        .slide.active .list-items li { opacity: 1; transform: translateX(0); }
+        .slide.active .list-items li:nth-child(1) { transition-delay: 0.2s; }
+        .slide.active .list-items li:nth-child(2) { transition-delay: 0.4s; }
+        .slide.active .list-items li:nth-child(3) { transition-delay: 0.6s; }
+
+    </style>
+</head>
+<body>
+
+    <div id="star-container"></div>
+    <div class="fog-container"><div class="fog-wave"></div></div>
+
+    <div class="slide-container">
+        
+        <!-- SLIDE 1: Capa -->
+        <div class="slide active">
+            <div class="big-icon">🇵🇱🔮</div>
+            <h1>ANDRZEJKI</h1>
+            <h2>A Noite da Magia Polonesa</h2>
+        </div>
+
+        <!-- SLIDE 2: O que é? -->
+        <div class="slide">
+            <div class="big-icon">🤔</div>
+            <h1>O QUE É?</h1>
+            <p>Não é Halloween! É uma festa tradicional focada em <span class="highlight">descobrir o futuro</span>, especialmente sobre o amor e o casamento.</p>
+        </div>
+
+        <!-- SLIDE 3: Quando? -->
+        <div class="slide">
+            <div class="big-icon">📅</div>
+            <h1>QUANDO?</h1>
+            <p>Na noite de <span class="highlight">29 para 30 de Novembro</span>.</p>
+            <p style="font-size: 1.2em; color: #aaa;">É a véspera do dia de Santo André (Święty Andrzej).</p>
+        </div>
+
+        <!-- SLIDE 4: Lanie Wosku -->
+        <div class="slide">
+            <div class="big-icon">🕯️🗝️</div>
+            <h1>LANIE WOSKU</h1>
+            <h2>(Derramar Cera)</h2>
+            <p>A tradição mais famosa! Derretemos cera através do buraco de uma <span class="highlight">chave antiga</span> na água fria.</p>
+            <p>A sombra da cera revela a profissão do futuro marido/esposa.</p>
+        </div>
+
+        <!-- SLIDE 5: Wyścig Butów -->
+        <div class="slide">
+            <div class="big-icon">👠👟</div>
+            <h1>WYŚCIG BUTÓW</h1>
+            <h2>(Corrida dos Sapatos)</h2>
+            <p>Alinhamos os sapatos um na frente do outro em direção à porta.</p>
+            <p>O dono do sapato que cruzar a porta primeiro... <span class="highlight">vai casar (ou viajar) primeiro!</span></p>
+        </div>
+
+        <!-- SLIDE 6: Casca de Maçã -->
+        <div class="slide">
+            <div class="big-icon">🍎🔪</div>
+            <h1>OBIERKI Z JABŁKA</h1>
+            <h2>(Casca de Maçã)</h2>
+            <p>Descasque a maçã tentando fazer a casca mais longa possível.</p>
+            <p>Jogue por cima do ombro: o formato que ela cair no chão é a <span class="highlight">inicial do seu amor</span>.</p>
+        </div>
+
+        <!-- SLIDE 7: Conclusão -->
+        <div class="slide">
+            <div class="big-icon">🎉💃</div>
+            <h1>HOJE EM DIA</h1>
+            <p>Hoje, Andrzejki é uma desculpa para uma <span class="highlight">grande festa</span> (Impreza)!</p>
+            <h2 style="color: #ffd700; margin-top: 50px;">UDANEJ ZABAWY!</h2>
+            <p style="font-size: 1em;">(Divirtam-se!)</p>
+        </div>
+
+    </div>
+
+    <div class="progress-bar" id="progressBar"></div>
+    <div class="nav-hint">Use as setas ⬅ ➡ ou clique</div>
+
+    <script>
+        // --- BACKGROUND (Estrelas) ---
+        function createStars() {
+            const container = document.getElementById('star-container');
+            for (let i = 0; i < 60; i++) {
+                const star = document.createElement('div');
+                star.className = 'star';
+                star.style.left = Math.random() * 100 + '%';
+                star.style.top = Math.random() * 100 + '%';
+                star.style.width = Math.random() * 3 + 'px';
+                star.style.height = star.style.width;
+                star.style.setProperty('--duration', (Math.random() * 3 + 2) + 's');
+                star.style.setProperty('--max-opacity', Math.random() * 0.7 + 0.3);
+                container.appendChild(star);
+            }
+        }
+        createStars();
+
+        // --- SISTEMA DE SLIDES ---
+        const slides = document.querySelectorAll('.slide');
+        const progressBar = document.getElementById('progressBar');
+        let currentSlide = 0;
+
+        function showSlide(index) {
+            slides.forEach(slide => slide.classList.remove('active'));
+            
+            if (index >= slides.length) index = 0; // Loop (opcional)
+            if (index < 0) index = slides.length - 1;
+
+            slides[index].classList.add('active');
+            currentSlide = index;
+            updateProgress();
+        }
+
+        function nextSlide() {
+            if (currentSlide < slides.length - 1) {
+                showSlide(currentSlide + 1);
+            }
+        }
+
+        function prevSlide() {
+            if (currentSlide > 0) {
+                showSlide(currentSlide - 1);
+            }
+        }
+
+        function updateProgress() {
+            const progress = ((currentSlide + 1) / slides.length) * 100;
+            progressBar.style.width = `${progress}%`;
+        }
+
+        // Controles
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowRight' || e.key === ' ' || e.key === 'Enter') nextSlide();
+            if (e.key === 'ArrowLeft') prevSlide();
+        });
+
+        document.addEventListener('click', (e) => {
+            // Clicar na esquerda volta, na direita avança (dividir tela)
+            if (e.clientX < window.innerWidth / 3) {
+                prevSlide();
+            } else {
+                nextSlide();
+            }
+        });
+
+        // Inicializa
+        updateProgress();
+
+    </script>
+</body>
+</html>

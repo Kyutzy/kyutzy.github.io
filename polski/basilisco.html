@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>A Lenda do Basilisco - Ultimate</title>
+    <style>
+        body {
+            margin: 0;
+            background-color: #000;
+            color: white;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            overflow: hidden;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: none;
+        }
+
+        /* --- CAMADAS DE EFEITO --- */
+        #flashlight-layer {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: black; z-index: 10; pointer-events: none;
+            opacity: 0; transition: opacity 1s;
+            background: radial-gradient(circle 150px at 50% 50%, transparent 0%, black 100%);
+        }
+
+        #red-overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: red; z-index: 20; opacity: 0; pointer-events: none;
+            transition: opacity 0.1s;
+        }
+
+        /* --- SLIDES --- */
+        .slide {
+            position: absolute; width: 100%; height: 100%;
+            display: flex; flex-direction: column; justify-content: center; align-items: center;
+            opacity: 0; pointer-events: none;
+            transition: opacity 0.8s ease-in-out;
+            text-align: center; padding: 40px; box-sizing: border-box;
+        }
+
+        .slide.active { opacity: 1; pointer-events: auto; }
+
+        /* Tipografia */
+        h1 {
+            font-size: 5em; color: #50ff50; text-transform: uppercase;
+            text-shadow: 0 0 20px rgba(80, 255, 80, 0.6); margin-bottom: 30px; line-height: 1.1;
+        }
+        h2 { font-size: 2.5em; color: #ccc; margin-bottom: 40px; }
+        
+        .key-instruction {
+            margin-top: 50px; font-size: 1.2em; color: #555; border: 1px solid #333;
+            padding: 10px 20px; border-radius: 10px; animation: pulse 2s infinite;
+        }
+
+        /* --- VISUAIS DO MONSTRO --- */
+        
+        .attack-eyes-container {
+            display: flex; gap: 80px; opacity: 0; transition: opacity 1s ease-in; transform: scale(0.9);
+        }
+
+        .glowing-eye {
+            width: 140px; height: 220px; 
+            background: #ff0000; 
+            border-radius: 50% / 40%;
+            box-shadow: 0 0 100px #ff0000, inset 0 0 30px #500000;
+            animation: breatheEye 3s infinite ease-in-out;
+            transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+
+        .pupil {
+            width: 30px; height: 160px; background: black; margin: 30px auto; border-radius: 50%; 
+            animation: lookAround 4s infinite alternate ease-in-out;
+            opacity: 0.9;
+            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        /* OLHAR TRAVADO */
+        .pupil.frozen-stare {
+            animation: none !important; transform: translateX(0) !important;
+            width: 90px; height: 190px; margin: 15px auto;
+            background: #000; box-shadow: 0 0 20px rgba(0,0,0,0.8);
+        }
+        .glowing-eye.frozen-stare-glow {
+            animation: none !important;
+            box-shadow: 0 0 150px #ff0000, inset 0 0 60px #ff0000;
+            background: #ff3333; transform: scale(1.05);
+        }
+
+        /* MONSTRO FINAL (Diabinho) */
+        .jumpscare-monster {
+            font-size: 30em; position: absolute; filter: drop-shadow(0 0 80px red);
+            opacity: 0; transform: scale(0.5); transition: all 0.15s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            z-index: 15;
+        }
+        .jumpscare-monster.visible {
+            opacity: 1; transform: scale(1.1) rotate(2deg);
+            animation: shake 0.2s infinite;
+        }
+
+        /* CLASSE NOVA: MORTE DO MONSTRO */
+        .jumpscare-monster.dying {
+            transition: all 2s ease-out; /* Demora 2 segundos sumindo */
+            opacity: 0;
+            transform: scale(0.8); /* Encolhe um pouco */
+            filter: grayscale(100%) brightness(0.2); /* Fica cinza e escuro */
+            animation: none; /* Para de tremer */
+        }
+
+        /* Vitória */
+        .stone-monster { font-size: 15em; filter: grayscale(100%) contrast(150%) brightness(0.8); }
+
+        /* Animações */
+        @keyframes pulse { 0% { opacity: 0.5; } 50% { opacity: 1; } 100% { opacity: 0.5; } }
+        @keyframes breatheEye { 0%, 100% { transform: scaleY(1); opacity: 1; } 50% { transform: scaleY(0.95); opacity: 0.8; } }
+        @keyframes lookAround { 0% { transform: translateX(-35px); } 100% { transform: translateX(35px); } }
+        @keyframes shake { 0% { transform: translate(0,0) rotate(2deg); } 25% { transform: translate(10px,5px) rotate(1deg); } 75% { transform: translate(-10px,-5px) rotate(3deg); } }
+
+        /* Cursor */
+        #custom-cursor {
+            position: fixed; width: 40px; height: 40px;
+            border: 2px solid rgba(255, 255, 255, 0.5); border-radius: 50%;
+            pointer-events: none; z-index: 100; transform: translate(-50%, -50%);
+            transition: opacity 0.3s; opacity: 0;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="flashlight-layer"></div>
+    <div id="red-overlay"></div>
+    <div id="custom-cursor"></div>
+
+    <div class="slide active">
+        <div style="font-size: 8em; filter: drop-shadow(0 0 20px green); margin-bottom: 20px;">🐲</div>
+        <h1>BAZYLISZEK</h1>
+        <p style="color: #666; font-size: 1.2em;">(Conte a história...)</p>
+        <div class="key-instruction">Use Seta Direita ➡ para avançar</div>
+    </div>
+
+    <div class="slide">
+        <h2>Chegamos ao porão maldito...</h2>
+        <p style="font-size: 1.5em; color: #aaa;">Preparem-se para entrar na escuridão.</p>
+        <div class="key-instruction" style="margin-top: 80px; border-color: #50ff50; color: #50ff50;">
+            Quando estiver pronto para descer<br>
+            Aperte a Seta para Baixo ⬇
+        </div>
+    </div>
+
+    <div class="slide" id="basement-slide">
+        <p style="position: absolute; top: 10%; color: #333; font-size: 1em; opacity: 0.5;">
+            (Use o mouse... Aperte ESPAÇO quando as luzes acenderem)
+        </p>
+    </div>
+
+    <div class="slide" id="dark-attack-slide">
+        <div class="attack-eyes-container" id="evil-eyes">
+            <div class="glowing-eye"><div class="pupil"></div></div>
+            <div class="glowing-eye"><div class="pupil"></div></div>
+        </div>
+        
+        <div class="jumpscare-monster" id="monster-face">👹</div>
+    </div>
+
+    <div class="slide" id="victory-slide">
+        <div class="stone-monster">🗿</div>
+        <h1>VITÓRIA!</h1>
+        <p style="color: #ffd700; font-size: 2em; margin-top: 20px;">Varsóvia está salva!</p>
+    </div>
+
+    <script>
+        const slides = document.querySelectorAll('.slide');
+        let currentSlide = 0;
+        const flashlight = document.getElementById('flashlight-layer');
+        const cursor = document.getElementById('custom-cursor');
+        const evilEyesContainer = document.getElementById('evil-eyes');
+        const glowingEyes = document.querySelectorAll('.glowing-eye');
+        const pupils = document.querySelectorAll('.pupil');
+        const monsterFace = document.getElementById('monster-face');
+        const redOverlay = document.getElementById('red-overlay');
+        const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        let growlOscillator = null;
+
+        document.addEventListener('keydown', (e) => {
+            if(e.key === 'ArrowRight' && currentSlide === 0) changeSlide(1);
+            if(e.key === 'ArrowDown' && currentSlide === 1) changeSlide(2);
+            if(e.key === ' ') handleSpacebarAction();
+        });
+
+        document.addEventListener('mousemove', (e) => {
+            cursor.style.left = e.clientX + 'px';
+            cursor.style.top = e.clientY + 'px';
+            if (currentSlide === 2) {
+                flashlight.style.background = `radial-gradient(circle 180px at ${e.clientX}px ${e.clientY}px, transparent 0%, black 100%)`;
+            }
+        });
+
+        function changeSlide(index) {
+            slides[currentSlide].classList.remove('active');
+            currentSlide = index;
+            slides[currentSlide].classList.add('active');
+            handleSlideEffects();
+        }
+
+        function handleSlideEffects() {
+            if (currentSlide === 2) {
+                flashlight.style.opacity = 1; cursor.style.opacity = 1;
+                playHeartbeat();
+            } else {
+                flashlight.style.opacity = 0; cursor.style.opacity = 0;
+            }
+            if (currentSlide === 3) {
+                stopHeartbeat();
+                setTimeout(() => { 
+                    evilEyesContainer.style.opacity = 1; 
+                    playGrowl(); 
+                }, 500);
+            }
+        }
+
+        function handleSpacebarAction() {
+            // Cena 2 -> 3 (Olhos Vermelhos)
+            if (currentSlide === 2) {
+                playScareSound(); 
+                changeSlide(3);
+            }
+            // Cena 3 (A Sequência do Susto)
+            else if (currentSlide === 3) {
+                const isFrozen = pupils[0].classList.contains('frozen-stare');
+                const isMonsterVisible = monsterFace.classList.contains('visible');
+                const isDying = monsterFace.classList.contains('dying');
+
+                // PASSO 1: CONGELAR E DILATAR
+                if (!isFrozen && !isMonsterVisible) {
+                    stopGrowl();
+                    pupils.forEach(p => p.classList.add('frozen-stare'));
+                    glowingEyes.forEach(ge => ge.classList.add('frozen-stare-glow'));
+                    playTenseSound();
+                } 
+                // PASSO 2: SUSTO (GRITO)
+                else if (isFrozen && !isMonsterVisible) {
+                    monsterFace.classList.add('visible');
+                    evilEyesContainer.style.display = 'none';
+                    redOverlay.style.opacity = 0.5;
+                    setTimeout(() => redOverlay.style.opacity = 0, 200);
+                    playScreech(); 
+                } 
+                // PASSO 3: MORTE DO MONSTRO (GROWL + FADE OUT)
+                else if (isMonsterVisible && !isDying) {
+                    // Adiciona a classe que faz ele sumir devagar e ficar cinza
+                    monsterFace.classList.add('dying');
+                    playDyingSound(); // Som grave de derrota/petrificação
+
+                    // Espera 2.5 segundos (tempo do som/fade) e troca o slide automaticamente
+                    setTimeout(() => {
+                        changeSlide(4);
+                    }, 2500);
+                }
+            }
+        }
+
+        // --- ÁUDIO REFINADO ---
+        function playHeartbeat() { if (audioCtx.state === 'suspended') audioCtx.resume(); }
+        function stopHeartbeat() { }
+        
+        function playGrowl() {
+            if (audioCtx.state === 'suspended') audioCtx.resume();
+            growlOscillator = audioCtx.createOscillator();
+            const g = audioCtx.createGain();
+            growlOscillator.connect(g); g.connect(audioCtx.destination);
+            growlOscillator.type = 'sawtooth'; growlOscillator.frequency.setValueAtTime(50, audioCtx.currentTime);
+            g.gain.setValueAtTime(0.1, audioCtx.currentTime);
+            growlOscillator.start();
+        }
+        function stopGrowl() { if(growlOscillator) { growlOscillator.stop(); growlOscillator = null; } }
+
+        function playTenseSound() {
+             const osc = audioCtx.createOscillator(); const g = audioCtx.createGain();
+             osc.connect(g); g.connect(audioCtx.destination);
+             osc.frequency.setValueAtTime(1000, audioCtx.currentTime);
+             g.gain.setValueAtTime(0.05, audioCtx.currentTime); g.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.5);
+             osc.start(); osc.stop(audioCtx.currentTime + 0.5);
+        }
+
+        function playScareSound() {
+            const osc = audioCtx.createOscillator(); const g = audioCtx.createGain();
+            osc.connect(g); g.connect(audioCtx.destination);
+            osc.frequency.setValueAtTime(200, audioCtx.currentTime);
+            osc.frequency.exponentialRampToValueAtTime(800, audioCtx.currentTime + 0.1);
+            g.gain.setValueAtTime(0.3, audioCtx.currentTime); g.gain.linearRampToValueAtTime(0, audioCtx.currentTime + 0.1);
+            osc.start(); osc.stop(audioCtx.currentTime + 0.1);
+        }
+        function playScreech() {
+            const osc = audioCtx.createOscillator(); const g = audioCtx.createGain();
+            osc.connect(g); g.connect(audioCtx.destination);
+            osc.type = 'sawtooth';
+            osc.frequency.setValueAtTime(400, audioCtx.currentTime);
+            osc.frequency.exponentialRampToValueAtTime(100, audioCtx.currentTime + 0.6);
+            g.gain.setValueAtTime(0.7, audioCtx.currentTime); g.gain.linearRampToValueAtTime(0, audioCtx.currentTime + 1);
+            osc.start(); osc.stop(audioCtx.currentTime + 1);
+        }
+
+        // NOVO SOM: MORTE/PETRIFICAÇÃO
+        function playDyingSound() {
+            // Um som grave que desce o tom (pitch down)
+            const osc = audioCtx.createOscillator();
+            const g = audioCtx.createGain();
+            osc.connect(g); g.connect(audioCtx.destination);
+            osc.type = 'triangle'; 
+            
+            const now = audioCtx.currentTime;
+            osc.frequency.setValueAtTime(150, now); // Começa grave
+            osc.frequency.exponentialRampToValueAtTime(10, now + 2); // Vai até quase inaudível (sub-grave)
+            
+            g.gain.setValueAtTime(0.5, now);
+            g.gain.linearRampToValueAtTime(0, now + 2); // Volume some junto
+            
+            osc.start(); osc.stop(now + 2);
+        }
+    </script>
+</body>
+</html>     
