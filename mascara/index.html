@@ -1,0 +1,134 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="referrer" content="strict-origin-when-cross-origin" />
+  <meta name="theme-color" content="#14262b" />
+  <meta name="description" content="Apresentação interativa sobre a poesia polonesa Trzeba chodzić w masce, de Maria Pawlikowska Jasnorzewska." />
+  <title>Trzeba chodzić w masce | Poesia Polonesa</title>
+  <link rel="stylesheet" href="styles.css" />
+  <script defer src="app.js"></script>
+</head>
+<body>
+  <div class="ambient ambient-one" aria-hidden="true"></div>
+  <div class="ambient ambient-two" aria-hidden="true"></div>
+  <div class="app-shell" id="app">
+    <header class="topbar">
+      <div class="brand" aria-label="Poesia polonesa"><span class="brand-mark">P<span class="brand-star">✳</span></span><span class="brand-words"><strong>POESIA</strong><small>POLONESA</small></span></div>
+      <div class="current-topic" id="currentTopic" aria-live="polite">A obra</div>
+      <div class="top-actions">
+        <button class="icon-button" type="button" id="helpBtn" aria-label="Ver atalhos de teclado" title="Atalhos de teclado (?)"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M9.9 9.1a2.4 2.4 0 0 1 4.4 1.2c0 1.8-2.3 2.1-2.3 3.8"/><path d="M12 17.4h.01"/></svg></button>
+        <button class="icon-button" type="button" id="overviewBtn" aria-label="Ver todos os slides" title="Visão geral (G)"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg></button>
+        <button class="icon-button" type="button" id="fullscreenBtn" aria-label="Entrar em tela cheia" title="Tela cheia (F)"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 3H3v5M16 3h5v5M3 16v5h5M21 16v5h-5"/></svg></button>
+      </div>
+    </header>
+
+    <main class="stage-wrap">
+      <div class="stage" id="stage" aria-label="Apresentação de sete slides">
+        <section class="slide slide-cover is-active" data-title="A obra" aria-label="Slide 1 de 7: A obra" aria-hidden="false">
+          <div class="cover-lines" aria-hidden="true"></div>
+          <div class="cover-art"><img src="assets/image1.png" alt="Pessoa com capuz e máscara escura" /></div>
+          <div class="cover-content">
+            <span class="eyebrow light"><span class="tiny-rule"></span> POEZJA POLSKA <span class="eyebrow-slash">/</span> POESIA POLONESA</span>
+            <p class="cover-pretitle">Um poema sobre a identidade, a sorte e o destino</p>
+            <h1>Trzeba chodzić<br /><em>w masce</em></h1>
+            <div class="cover-translation">É preciso andar de máscara</div>
+            <div class="author-line"><span class="author-bar"></span><div><span>UM POEMA DE</span><strong>Maria Pawlikowska Jasnorzewska</strong></div></div>
+          </div>
+          <div class="slide-decoration cover-decoration" aria-hidden="true">01 <span>/</span> 07</div>
+        </section>
+
+        <section class="slide slide-bio" data-title="A autora" aria-label="Slide 2 de 7: A autora" aria-hidden="true">
+          <div class="bio-image"><img src="assets/image2.jpeg" alt="Retrato histórico em preto e branco da escritora Maria Pawlikowska Jasnorzewska"/><div class="image-caption">CRACÓVIA · 1891</div></div>
+          <div class="bio-content">
+            <span class="eyebrow"><span class="tiny-rule"></span> CONHEÇA A AUTORA</span>
+            <h2>Maria Pawlikowska<br/><em>Jasnorzewska</em></h2>
+            <div class="date-line"><span>✦ 24 nov. 1891 · Cracóvia</span><span>✝ 9 jul. 1945 · Manchester</span></div>
+            <div class="bio-description"><p><b>Poetisa polonesa</b> — escreveu sobre amor, natureza e velhice.</p><p><b>Dramaturga</b> — abordou relações extraconjugais e aborto. Também escreveu peças para a rádio polonesa.</p></div>
+            <h3>Casamentos</h3>
+            <div class="marriages"><div><span>1915—1919</span><p><b>Władysław Bzowski</b><small>Tenente do exército austríaco</small></p></div><div><span>1919—1929</span><p><b>Jan Pawlikowski</b><small>Prosador e especialista em folclore</small></p></div><div><span>1931—1945</span><p><b>Stefan Jerzy Jasnorzewski</b><small>Tenente da aviação</small></p></div></div>
+          </div>
+          <div class="slide-decoration" aria-hidden="true">02 <span>/</span> 07</div>
+        </section>
+
+        <section class="slide slide-poem" data-title="O poema em polonês" aria-label="Slide 3 de 7: O poema e o vídeo" aria-hidden="true">
+          <div class="poem-left">
+            <span class="eyebrow light"><span class="tiny-rule"></span> O POEMA · 1927</span>
+            <h2>Trzeba chodzić <em>w masce</em></h2>
+            <div class="poem-text" lang="pl">
+              <p>poszłam w masce zwinięta w pelerynę ciemną<br/>z oczami zwężonymi<br/>w migocące sierpy<br/>szczęście mnie nie poznało<br/>i tańczyło ze mną<br/>nie wiedząc że to jestem<br/>ja której nie cierpi<br/>i los też mnie nie poznał<br/>i pomyślał sobie<br/>czemuż nie mam dogodzić<br/>tej obcej osobie.</p>
+            </div>
+            <div class="poem-note">Maria Pawlikowska Jasnorzewska <span>·</span> 1927</div>
+          </div>
+          <div class="poem-right">
+            <div class="media-meta"><span class="media-label"><span class="live-dot"></span> VÍDEO INTEGRADO</span><span>DECLAMAÇÃO EM POLONÊS</span></div>
+            <div class="video-embed" data-video-id="TC7wRIpTJfo" data-label="Declamação de Trzeba chodzić w masce">
+              <img class="video-poster" src="assets/image3.jpeg" alt="Capa do vídeo de declamação do poema Trzeba chodzić w masce" />
+              <button class="play-button" type="button" aria-label="Reproduzir declamação do poema"><span class="play-triangle" aria-hidden="true"></span></button>
+            </div>
+            <p class="video-description">Ouça a declamação enquanto acompanha o texto original.</p>
+            <a class="external-video-link" href="https://youtu.be/TC7wRIpTJfo" target="_blank" rel="noopener noreferrer">Abrir vídeo no YouTube <span aria-hidden="true">↗</span></a>
+          </div>
+          <div class="slide-decoration dark-dec" aria-hidden="true">03 <span>/</span> 07</div>
+        </section>
+
+        <section class="slide slide-translation" data-title="Poema e tradução" aria-label="Slide 4 de 7: Poema em polonês e português" aria-hidden="true">
+          <header class="translation-header"><span class="eyebrow"><span class="tiny-rule"></span> LEITURA COMPARADA</span><h2>Um poema, <em>duas línguas.</em></h2></header>
+          <div class="translation-columns">
+            <article class="translation-column"><div class="language-label"><span class="flag-pl" aria-hidden="true"></span> VERSÃO EM POLONÊS <span>PL</span></div><h3>Trzeba chodzić w masce</h3><p class="bilingual-poem" lang="pl">poszłam w masce zwinięta w pelerynę ciemną<br/>z oczami zwężonymi<br/>w migocące sierpy<br/>szczęście mnie nie poznało<br/>i tańczyło ze mną<br/>nie wiedząc że to jestem<br/>ja której nie cierpi<br/>i los też mnie nie poznał<br/>i pomyślał sobie<br/>czemuż nie mam dogodzić<br/>tej obcej osobie.</p><div class="translation-credit">Maria Pawlikowska Jasnorzewska · 1927 (36 anos)</div></article>
+            <article class="translation-column"><div class="language-label"><span class="flag-br" aria-hidden="true">◉</span> VERSÃO EM PORTUGUÊS <span>PT-BR</span></div><h3>É preciso andar de máscara</h3><p class="bilingual-poem">fui de máscara e capa escura passear<br/>com olhos estreitados<br/>em foices radiosas<br/>não me reconheceu a sorte<br/>e me tirou para dançar<br/>sem saber que era eu<br/>que lhe era odiosa<br/>e nem me reconheceu a sina<br/>e pensou com manha<br/>por que não agraciar<br/>esta pessoa estranha.</p><div class="translation-credit">Tradução: Piotr KILANOWSKI</div></article>
+          </div>
+          <div class="slide-decoration" aria-hidden="true">04 <span>/</span> 07</div>
+        </section>
+
+        <section class="slide slide-women" data-title="Pseudônimos femininos" aria-label="Slide 5 de 7: Mulheres que utilizaram pseudônimos" aria-hidden="true">
+          <div class="pseudonym-main">
+            <span class="eyebrow"><span class="tiny-rule"></span> IDENTIDADE E ESCRITA</span>
+            <h2>Mulheres que utilizaram <em>pseudônimos.</em></h2>
+            <div class="table-wrapper"><table class="pseudonym-table"><thead><tr><th>Nome</th><th>Pseudônimo</th><th>Profissão / obra</th></tr></thead><tbody>
+              <tr><td><b>Agatha Christie</b><small>Rainha do Crime</small></td><td>Mary Westmacott<small>6 livros</small></td><td>Escritora<small>Romance, teatro</small></td></tr>
+              <tr><td><b>Amandine Dupin</b></td><td>George Sand</td><td>Escritora feminista<small>Romancista — século XIX</small></td></tr>
+              <tr><td><b>Joanne Rowling</b></td><td>J. K. Rowling<small>Robert Galbraith</small></td><td>Harry Potter<small>Série policial</small></td></tr>
+              <tr><td><b>Maria Quitéria de Jesus</b></td><td>José Cordeiro de Medeiros</td><td>Patrona do Quadro Complementar de Oficiais do Exército Brasileiro</td></tr>
+              <tr><td><b>Nair de Tefé</b></td><td>Rian</td><td>Caricaturista</td></tr>
+            </tbody></table></div>
+          </div>
+          <div class="pseudonym-photo"><img src="assets/image4.jpeg" alt="Mulher usando máscara de baile ornamentada em dourado e preto" /><div class="photo-label">A MÁSCARA COMO IDENTIDADE</div></div>
+          <div class="slide-decoration" aria-hidden="true">05 <span>/</span> 07</div>
+        </section>
+
+        <section class="slide slide-men" data-title="Pseudônimos masculinos" aria-label="Slide 6 de 7: Homens que utilizaram pseudônimos e vídeo" aria-hidden="true">
+          <div class="men-header"><span class="eyebrow light"><span class="tiny-rule"></span> IDENTIDADE E ESCRITA</span><h2>Homens que utilizaram <em>pseudônimos.</em></h2></div>
+          <div class="men-body">
+            <div class="table-wrapper men-table-wrapper"><table class="pseudonym-table men-table"><thead><tr><th>Nome</th><th>Pseudônimo</th><th>Profissão / obra</th></tr></thead><tbody>
+              <tr><td><b>Eric Blair</b></td><td>George Orwell<small>A revolução dos bichos, 1984</small></td><td>Jornalista<small>Escritor</small></td></tr>
+              <tr><td><b>Nelson Rodrigues</b></td><td>Suzana Flag<small>Myrna</small></td><td>Escritor<small>Cronista, folhetim de jornal</small></td></tr>
+              <tr><td><b>Machado de Assis</b></td><td>Boas Noites<small>Victor de Paula, Platão, Dr. Semana</small></td><td>Escritor<small>Cronista</small></td></tr>
+              <tr><td><b>Chico Buarque</b></td><td>Julinho da Adelaide</td><td>Compositor<small>Músico</small></td></tr>
+              <tr><td><b>José Pereira da Silva Neto</b></td><td>Chrystian</td><td>Compositor<small>Cantor</small></td></tr>
+            </tbody></table></div>
+            <div class="men-video"><span class="media-label"><span class="live-dot"></span> VÍDEO INTEGRADO NO ORIGINAL</span><div class="video-embed" data-video-id="hs92DCl_4i8" data-label="Vídeo sobre o cantor Chrystian"><img class="video-poster" src="assets/image5.jpeg" alt="Capa do álbum de Chrystian, com retrato em cores invertidas"/><button class="play-button" type="button" aria-label="Reproduzir vídeo sobre Chrystian"><span class="play-triangle" aria-hidden="true"></span></button></div><a class="external-video-link" href="https://www.youtube.com/watch?v=hs92DCl_4i8" target="_blank" rel="noopener noreferrer">Abrir vídeo no YouTube <span aria-hidden="true">↗</span></a></div>
+          </div>
+          <div class="slide-decoration dark-dec" aria-hidden="true">06 <span>/</span> 07</div>
+        </section>
+
+        <section class="slide slide-references" data-title="Referências" aria-label="Slide 7 de 7: Referências" aria-hidden="true">
+          <div class="reference-art" aria-hidden="true"><span>„</span></div>
+          <div class="reference-content"><span class="eyebrow"><span class="tiny-rule"></span> FIM DA APRESENTAÇÃO</span><h2>Referências<span class="period">.</span></h2><div class="reference-rule"></div><article class="reference-card"><span>01 · ARTIGO ACADÊMICO</span><p>KILANOWSKI, Piotr. <em>Vinte e dois poetas poloneses: uma pequena antologia de poesia em tradução.</em> Belas Infiéis, Brasília, v. 9, n. 2, p. 31–64, 2020.</p></article><article class="reference-card"><span>02 · MATERIAL AUDIOVISUAL</span><p>Declamação: <a href="https://youtu.be/TC7wRIpTJfo" target="_blank" rel="noopener noreferrer">youtu.be/TC7wRIpTJfo ↗</a></p></article><div class="ending-quote">Trzeba chodzić w masce<span> · Maria Pawlikowska Jasnorzewska</span></div></div>
+          <div class="slide-decoration" aria-hidden="true">07 <span>/</span> 07</div>
+        </section>
+      </div>
+    </main>
+
+    <footer class="controlbar">
+      <div class="control-left"><span class="slide-counter" id="slideCounter"><strong>01</strong><span> / 07</span></span><span class="control-divider"></span><span class="control-hint">← → para navegar</span></div>
+      <nav class="slide-navigation" id="slideNavigation" aria-label="Ir para slide"></nav>
+      <div class="control-right"><button class="nav-button" id="prevBtn" type="button" aria-label="Slide anterior" title="Anterior (←)"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m14.5 5-7 7 7 7"/></svg></button><button class="nav-button next-button" id="nextBtn" type="button" aria-label="Próximo slide" title="Próximo (→)"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m9.5 5 7 7-7 7"/></svg></button></div>
+    </footer>
+  </div>
+
+  <dialog id="overviewDialog" class="overlay-dialog" aria-label="Visão geral de slides"><div class="overlay-top"><div><span class="eyebrow light">NAVEGAÇÃO</span><h2>Todos os slides</h2></div><button class="icon-button close-dialog" type="button" aria-label="Fechar visão geral">✕</button></div><div class="overview-grid" id="overviewGrid"></div></dialog>
+  <dialog id="helpDialog" class="overlay-dialog help-dialog" aria-label="Ajuda e atalhos"><div class="overlay-top"><div><span class="eyebrow light">GUIA RÁPIDO</span><h2>Como apresentar</h2></div><button class="icon-button close-dialog" type="button" aria-label="Fechar ajuda">✕</button></div><div class="shortcut-grid"><div><kbd>←</kbd> <kbd>→</kbd><span>Slide anterior / próximo</span></div><div><kbd>Espaço</kbd><span>Próximo slide</span></div><div><kbd>Home</kbd> <kbd>End</kbd><span>Primeiro / último slide</span></div><div><kbd>F</kbd><span>Tela cheia</span></div><div><kbd>G</kbd><span>Visão geral</span></div><div><kbd>Esc</kbd><span>Fechar janela / sair da tela cheia</span></div></div><p class="help-notice">Vídeos são carregados somente ao clicar em reproduzir e exigem conexão com a internet.</p></dialog>
+</body>
+</html>
