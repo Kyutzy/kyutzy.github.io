@@ -1,6 +1,6 @@
 # Poesia Polonesa — apresentação no GitHub Pages
 
-Apresentação estática e interativa convertida de `Poesia2.pptx` (7 slides). Não requer Node.js, Python nem backend.
+Apresentação fullscreen, sem molduras, estática e interativa convertida de `Poesia2.pptx` (7 slides). Não requer Node.js, Python nem backend.
 
 ## Publicação no GitHub Pages
 
@@ -29,3 +29,7 @@ O link textual exibido no PowerPoint para o slide 6 aponta por engano para o ví
 ## Estrutura
 
 `index.html`: slides e conteúdo; `styles.css`: aparência; `app.js`: navegação, controles e YouTube; `assets/`: imagens extraídas do arquivo original; `.nojekyll`: evita processamento Jekyll desnecessário.
+
+## Layout fullscreen
+
+Os slides ocupam **100% da largura e altura da janela** do navegador, sem bordas externas. Navegação e ações ficam sobrepostas discretamente. Use `F` ou o botão superior para ativar a tela cheia real do navegador. No celular, os slides longos continuam roláveis.
